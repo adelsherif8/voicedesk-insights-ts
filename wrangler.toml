@@ -1,0 +1,9 @@
+# Sketch only: this project has not been deployed to Cloudflare. See README "Runtime targets".
+name = "voicedesk-insights"
+main = "src/worker.ts"
+compatibility_date = "2026-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# [[hyperdrive]]
+# binding = "HYPERDRIVE"
+# id = "<your-hyperdrive-id>"

@@ -1,0 +1,44 @@
+{
+  "name": "voicedesk-insights-ts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TypeScript port of the VoiceDesk call-outcomes + insights endpoints (Hono, Drizzle, Postgres, Vercel AI SDK, OpenTelemetry).",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {},
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.16",
+    "@eslint/js": "10.0.1",
+    "@types/node": "22.20.5",
+    "@types/pg": "8.23.1",
+    "@vitest/coverage-v8": "5.1.0",
+    "drizzle-kit": "0.31.11",
+    "eslint": "10.15.0",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.73.0",
+    "vitest": "5.1.0"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "4.0.105",
+    "@ai-sdk/openai": "4.0.118",
+    "@ai-sdk/otel": "1.0.173",
+    "@ai-sdk/provider": "4.0.38",
+    "@hono/node-server": "2.1.8",
+    "@hono/otel": "1.3.0",
+    "@hono/zod-validator": "0.9.1",
+    "@opentelemetry/api": "1.9.1",
+    "@opentelemetry/exporter-trace-otlp-http": "0.223.2",
+    "@opentelemetry/resources": "2.12.1",
+    "@opentelemetry/sdk-trace-base": "2.12.1",
+    "@opentelemetry/sdk-trace-node": "2.12.1",
+    "@opentelemetry/semantic-conventions": "1.45.0",
+    "ai": "7.0.173",
+    "drizzle-orm": "0.45.4",
+    "hono": "4.13.19",
+    "pg": "8.23.1",
+    "zod": "4.6.7"
+  }
+}
