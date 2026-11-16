@@ -18,3 +18,7 @@ export const json = (body: unknown, headers: Record<string, string> = {}): Reque
   headers: { 'content-type': 'application/json', ...headers },
   body: JSON.stringify(body),
 });
+
+/** Response body as loosely-typed JSON; API tests assert on its shape. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const read = (res: Response): Promise<any> => res.json();

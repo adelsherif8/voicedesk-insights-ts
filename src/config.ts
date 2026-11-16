@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
-const RealProvider = z.enum(['openai', 'anthropic']);
-export type RealProvider = z.infer<typeof RealProvider>;
+export type RealProvider = 'openai' | 'anthropic';
 export type ProviderName = RealProvider | 'mock';
 
 const boolish = z
@@ -21,7 +20,7 @@ const EnvSchema = z.object({
   MOCK_PRIMARY_INVALID: boolish,
   API_KEY: z.string().optional(),
   OTEL_TRACES_EXPORTER: z.enum(['console', 'otlp', 'none']).default('console'),
-  OTEL_EXPORTER_OTLP_ENDPOINT: z.string().url().optional(),
+  OTEL_EXPORTER_OTLP_ENDPOINT: z.url().optional(),
   OTEL_SERVICE_NAME: z.string().min(1).default('voicedesk-insights'),
 });
 

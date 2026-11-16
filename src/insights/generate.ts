@@ -7,9 +7,6 @@ import type { NamedModel } from './providers.js';
 import type { BriefRow } from './redact.js';
 import { type Insight, InsightSchema } from './schema.js';
 
-const tracer = trace.getTracer('voicedesk-insights');
-// Bridges AI SDK lifecycle events to whatever OTel tracer provider is registered (no-op if none).
-const aiTelemetry = new OpenTelemetry();
 
 export type FailureKind = 'validation' | 'provider_error';
 
@@ -89,6 +86,10 @@ export async function generateInsight({ agent, rows, chain, maxRetries = 1 }: Ge
   if (chain.length === 0) throw new Error('no models configured');
   const prompt = buildPrompt(agent, rows);
   const attempts: Attempt[] = [];
+  // looked up per call so a provider registered after import (or re-registered) is always used
+  const tracer = trace.getTracer('voicedesk-insights');
+  // bridges AI SDK lifecycle events (model call, tokens, finish reason) to the same tracer provider
+  const aiTelemetry = new OpenTelemetry();
 
   for (const [index, m] of chain.entries()) {
     const outcome = await tracer.startActiveSpan('insight.attempt', async (span) => {
@@ -101,7 +102,7 @@ export async function generateInsight({ agent, rows, chain, maxRetries = 1 }: Ge
       try {
         const result = await generateText({
           model: m.model,
-          system: SYSTEM_PROMPT,
+          instructions: SYSTEM_PROMPT,
           prompt,
           output: Output.object({ schema: InsightSchema, name: 'call_insight' }),
           temperature: 0.2,

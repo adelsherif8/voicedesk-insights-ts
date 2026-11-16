@@ -21,10 +21,9 @@ export function fakeModel(provider: ProviderName, opts: { text?: string; error?:
   const model = new MockLanguageModelV4({
     provider,
     modelId: `${provider}-fake`,
-    doGenerate: async (options) => {
+    doGenerate: (options) => {
       calls.push(options);
-      if (opts.error) throw opts.error;
-      return textResult(opts.text ?? '');
+      return opts.error ? Promise.reject(opts.error) : Promise.resolve(textResult(opts.text ?? ''));
     },
   });
   const named: NamedModel = { provider, modelId: model.modelId, model };

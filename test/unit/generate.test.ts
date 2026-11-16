@@ -82,14 +82,20 @@ describe('generateInsight', () => {
 
 describe('checkGrounding', () => {
   it('accepts an insight that only references given records', () => {
-    expect(() => checkGrounding(good, rows)).not.toThrow();
+    expect(() => {
+      checkGrounding(good, rows);
+    }).not.toThrow();
   });
 
   it('rejects duplicate ids and inflated counts', () => {
     const dup = { ...good, missedOpportunities: [{ callOutcomeId: 12, reason: 'a' }, { callOutcomeId: 12, reason: 'b' }] };
-    expect(() => checkGrounding(dup, rows)).toThrow(/duplicate/);
+    expect(() => {
+      checkGrounding(dup, rows);
+    }).toThrow(/duplicate/);
     const inflated = { ...good, topIntents: [{ intent: 'x', count: 3 }] };
-    expect(() => checkGrounding(inflated, rows)).toThrow(/add up to 3/);
+    expect(() => {
+      checkGrounding(inflated, rows);
+    }).toThrow(/add up to 3/);
   });
 });
 
